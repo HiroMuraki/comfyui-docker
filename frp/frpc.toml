@@ -1,0 +1,11 @@
+serverAddr = "{{ .Envs.FRP_SERVER_ADDR }}"
+serverPort = {{ .Envs.FRP_PORT }}
+auth.method = "token"
+auth.token = "{{ .Envs.FRP_TOKEN }}"
+
+[[proxies]]
+name = "SD-Trainer"
+type = "tcp"
+localIP = "application"
+localPort = {{ .Envs.FRP_LOCAL_PORT }}
+remotePort = {{ .Envs.FRP_SERVER_PORT }}

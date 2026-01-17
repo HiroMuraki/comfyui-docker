@@ -1,0 +1,44 @@
+name: comfyui
+
+services:
+    application:
+        build: ./application
+        restart: always
+        ports:
+            - "8188:8188/tcp"
+        environment:
+            - UV_LINK_MODE=copy
+            - UV_PYTHON_PREFERENCE=only-system
+            - UV_PYTHON_DOWNLOADS=never
+            - UV_CACHE_DIR=/uv_cache
+        env_file:
+            - .env
+        volumes:
+            - app:/app/
+            - uv_cache:/uv_cache/
+            - ./data/models:/app/models/
+            - ./data/input:/app/input/
+            - ./data/output:/app/output/
+            - ./data/user:/app/user/
+        deploy:
+            resources:
+                reservations:
+                    devices:
+                        - driver: nvidia
+                          count: 1
+                          capabilities: [gpu]
+        entrypoint: entrypoint.sh
+        command: start.sh
+    frp:
+        build: ./frp
+        depends_on:
+            - application
+        restart: always
+        env_file:
+            - .env
+        command: start.sh
+
+volumes:
+    app:
+    uv_cache:
+        external: true
