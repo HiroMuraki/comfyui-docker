@@ -4,7 +4,7 @@ auth.method = "token"
 auth.token = "{{ .Envs.FRP_TOKEN }}"
 
 [[proxies]]
-name = "SD-Trainer"
+name = "application"
 type = "tcp"
 localIP = "application"
 localPort = {{ .Envs.FRP_LOCAL_PORT }}
