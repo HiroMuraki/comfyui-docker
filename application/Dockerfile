@@ -15,4 +15,3 @@ RUN chmod +x /bin/entrypoint.sh
 
 COPY ./start.sh /bin/start.sh
 RUN chmod +x /bin/start.sh
-

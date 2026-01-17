@@ -14,6 +14,7 @@ if [ ! -f ".env" ]; then
 fi
 
 # 下载模型文件
+export HF_ENDPOINT=https://hf-mirror.com
 
 
 echo "环境检查通过，继续执行后续操作..."

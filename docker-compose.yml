@@ -11,6 +11,8 @@ services:
             - UV_PYTHON_PREFERENCE=only-system
             - UV_PYTHON_DOWNLOADS=never
             - UV_CACHE_DIR=/uv_cache
+            - NVIDIA_VISIBLE_DEVICES=all
+            - NVIDIA_DRIVER_CAPABILITIES=compute,utility
         env_file:
             - .env
         volumes:
@@ -20,13 +22,8 @@ services:
             - ./data/input:/app/input/
             - ./data/output:/app/output/
             - ./data/user:/app/user/
-        deploy:
-            resources:
-                reservations:
-                    devices:
-                        - driver: nvidia
-                          count: 1
-                          capabilities: [gpu]
+        devices:
+            - "nvidia.com/gpu=all"
         entrypoint: entrypoint.sh
         command: start.sh
     frp:
