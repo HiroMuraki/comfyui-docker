@@ -22,8 +22,13 @@ services:
             - ./data/input:/app/input/
             - ./data/output:/app/output/
             - ./data/user:/app/user/
-        devices:
-            - "nvidia.com/gpu=all"
+        deploy:
+            resources:
+                reservations:
+                    devices:
+                        - driver: nvidia
+                          count: all
+                          capabilities: [gpu]
         entrypoint: entrypoint.sh
         command: start.sh
     frp:
